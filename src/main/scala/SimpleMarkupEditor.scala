@@ -5,7 +5,7 @@ import scala.swing.event._
 
 import org.clapper.markwrap._
 
-object SimpleMarkupEditor extends SimpleSwingApplication with Actions {
+object SimpleMarkupEditor extends SimpleSwingApplication with Actions with FileHandling {
 
   object top extends MainFrame {
     title = "Simple Markup Editor"
@@ -14,6 +14,9 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Actions {
     menuBar = new MenuBar {
       val file = new Menu("File")
       file.mnemonic = Key.F
+      file.contents += new MenuItem(action.save)
+      file.contents += new MenuItem(action.saveAs)
+      file.contents += new Separator
       file.contents += new MenuItem(action.quit)
 
       contents += file

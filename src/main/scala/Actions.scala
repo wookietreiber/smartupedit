@@ -20,6 +20,16 @@ trait Actions {
         )
     }
 
+    object newA extends Action("New") {
+      accelerator = Some(KeyStroke(Key.N, Key.Modifier.Control))
+      mnemonic    = Key.N.id
+
+      override def apply = {
+        editor.text = ""
+        current = None
+      }
+    }
+
     object open extends Action("Open") {
       accelerator = Some(KeyStroke(Key.O, Key.Modifier.Control))
       mnemonic    = Key.O.id

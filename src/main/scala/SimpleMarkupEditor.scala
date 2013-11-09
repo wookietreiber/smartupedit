@@ -14,6 +14,7 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Actions with FileH
     menuBar = new MenuBar {
       val file = new Menu("File")
       file.mnemonic = Key.F
+      file.contents += new MenuItem(action.newA)
       file.contents += new MenuItem(action.open)
       file.contents += new Separator
       file.contents += new MenuItem(action.save)

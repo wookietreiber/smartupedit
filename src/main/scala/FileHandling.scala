@@ -11,7 +11,7 @@ trait FileHandling {
   var current = Option.empty[File]
 
   def baseDir = current map { _.getParentFile } getOrElse {
-    new File(sys.props("user.home"))
+    new File(sys.props("user.dir"))
   }
 
   def save(opt: Option[File] = current) = for (file ← opt orElse chooseSaveTarget()) {

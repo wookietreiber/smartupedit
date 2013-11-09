@@ -23,14 +23,42 @@ trait FileHandling {
 
   def writeTo(file: File) = {
     val writer = new FileWriter(file)
-    writer.write(editor.text)
-    writer.close()
+    try {
+      writer.write(editor.text)
+    } finally {
+      writer.close()
+    }
   }
 
   def chooseSaveTarget(dir: File = baseDir): Option[File] = {
     val chooser = new FileChooser(dir)
 
     chooser.showSaveDialog(over = editor) match {
+      case FileChooser.Result.Approve ⇒
+        Some(chooser.selectedFile)
+
+      case _ ⇒ None
+    }
+  }
+
+  def readFrom(file: File) = {
+    val source = io.Source.fromFile(file)
+    try {
+      editor.text = source.getLines.mkString("\n")
+    } finally {
+      source.close()
+    }
+  }
+
+  def open() = for (file ← chooseOpenTarget()) {
+    readFrom(file)
+    current = Some(file)
+  }
+
+  def chooseOpenTarget(dir: File = baseDir): Option[File] = {
+    val chooser = new FileChooser(dir)
+
+    chooser.showOpenDialog(over = editor) match {
       case FileChooser.Result.Approve ⇒
         Some(chooser.selectedFile)
 

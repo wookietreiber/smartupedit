@@ -20,6 +20,13 @@ trait Actions {
         )
     }
 
+    object open extends Action("Open") {
+      accelerator = Some(KeyStroke(Key.O, Key.Modifier.Control))
+      mnemonic    = Key.O.id
+
+      override def apply = Try(self.open()) recover showError
+    }
+
     object save extends Action("Save") {
       accelerator = Some(KeyStroke(Key.S, Key.Modifier.Control))
       mnemonic    = Key.S.id

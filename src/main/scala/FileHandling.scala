@@ -15,18 +15,41 @@ trait FileHandling {
   }
 
   def save(opt: Option[File] = current) = for (file ← opt orElse chooseSaveTarget()) {
-    writeTo(file)
+    IO write editor.text to file
     current = Some(file)
   }
 
   def saveAs() = save(None)
 
-  def writeTo(file: File) = {
-    val writer = new FileWriter(file)
-    try {
-      writer.write(editor.text)
-    } finally {
-      writer.close()
+  def export() = for (file ← chooseSaveTarget()) {
+    IO write viewer.text to file
+  }
+
+  object IO {
+    def write(content: ⇒ String) = new ContentWriter(content)
+
+    def read(file: File) = new ContentReader(file)
+
+    class ContentReader(file: File) {
+      def to(f: String ⇒ Unit) = {
+        val source = io.Source.fromFile(file)
+        try {
+          f(source.getLines.mkString("\n"))
+        } finally {
+          source.close()
+        }
+      }
+    }
+
+    class ContentWriter(content: ⇒ String) {
+      def to(file: File) = {
+        val writer = new FileWriter(file)
+        try {
+          writer.write(content)
+        } finally {
+          writer.close()
+        }
+      }
     }
   }
 
@@ -41,17 +64,8 @@ trait FileHandling {
     }
   }
 
-  def readFrom(file: File) = {
-    val source = io.Source.fromFile(file)
-    try {
-      editor.text = source.getLines.mkString("\n")
-    } finally {
-      source.close()
-    }
-  }
-
   def open() = for (file ← chooseOpenTarget()) {
-    readFrom(file)
+    IO read file to editor.text_=
     current = Some(file)
   }
 

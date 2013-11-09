@@ -19,6 +19,7 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Actions with FileH
       file.contents += new Separator
       file.contents += new MenuItem(action.save)
       file.contents += new MenuItem(action.saveAs)
+      file.contents += new MenuItem(action.export)
       file.contents += new Separator
       file.contents += new MenuItem(action.quit)
 

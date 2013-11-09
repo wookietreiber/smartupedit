@@ -20,6 +20,13 @@ trait Actions {
         )
     }
 
+    object export extends Action("Export ...") {
+      accelerator = Some(KeyStroke(Key.E, Key.Modifier.Control))
+      mnemonic    = Key.E.id
+
+      override def apply = Try(self.export()) recover showError
+    }
+
     object newA extends Action("New") {
       accelerator = Some(KeyStroke(Key.N, Key.Modifier.Control))
       mnemonic    = Key.N.id

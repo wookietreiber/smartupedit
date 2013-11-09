@@ -5,11 +5,19 @@ import scala.swing.event._
 
 import org.clapper.markwrap._
 
-object SimpleMarkupEditor extends SimpleSwingApplication {
+object SimpleMarkupEditor extends SimpleSwingApplication with Actions {
 
   object top extends MainFrame {
     title = "Simple Markup Editor"
     contents = splitter
+
+    menuBar = new MenuBar {
+      val file = new Menu("File")
+      file.mnemonic = Key.F
+      file.contents += new MenuItem(action.quit)
+
+      contents += file
+    }
   }
 
   object splitter extends GridPanel(1, 2) {

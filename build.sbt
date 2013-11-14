@@ -1,12 +1,17 @@
-name := "smartupedit"
+import smartupedit.build._
+import Dependencies._
 
-version := "0.2.0-SNAPSHOT"
-
-scalaVersion := "2.10.3"
-
-libraryDependencies ++= Seq (
-  "org.scala-lang" %  "scala-swing" % scalaVersion.value,
-  "org.clapper"    %% "markwrap"    % "1.0.1"
+lazy val core = (
+  EditorProject("smartupedit-core", "core")
+  settings(
+    libraryDependencies += markwrap
+  )
 )
 
-organization := "com.github.wookietreiber"
+lazy val swingClient = (
+  EditorProject("smartupedit-swing", "swing")
+  dependsOn(core)
+  settings(
+    libraryDependencies += swing % scalaVersion.value
+  )
+)

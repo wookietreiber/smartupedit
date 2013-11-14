@@ -1,4 +1,7 @@
 package smartupedit
+package swing
+
+import java.io.File
 
 import scala.swing._
 import scala.swing.event._
@@ -45,6 +48,28 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Actions with FileH
   reactions += {
     case ValueChanged(`editor`) ⇒
       viewer.text = parser.parseToHTML(editor.text)
+  }
+
+  def chooseSaveTarget(dir: File = baseDir): Option[File] = {
+    val chooser = new FileChooser(dir)
+
+    chooser.showSaveDialog(over = editor) match {
+      case FileChooser.Result.Approve ⇒
+        Some(chooser.selectedFile)
+
+      case _ ⇒ None
+    }
+  }
+
+  def chooseOpenTarget(dir: File = baseDir): Option[File] = {
+    val chooser = new FileChooser(dir)
+
+    chooser.showOpenDialog(over = editor) match {
+      case FileChooser.Result.Approve ⇒
+        Some(chooser.selectedFile)
+
+      case _ ⇒ None
+    }
   }
 
 }

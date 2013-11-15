@@ -6,9 +6,7 @@ import java.io.File
 import scala.swing._
 import scala.swing.event._
 
-import org.clapper.markwrap._
-
-object SimpleMarkupEditor extends SimpleSwingApplication with Actions with FileHandling {
+object SimpleMarkupEditor extends SimpleSwingApplication with Converting with Actions with FileHandling {
 
   object top extends MainFrame {
     title = "Simple Markup Editor"
@@ -40,14 +38,12 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Actions with FileH
     font = java.awt.Font decode "Monospaced"
   }
 
-  val parser = MarkWrap.parserFor(MarkupType.Markdown)
-
   object viewer extends EditorPane("text/html", "")
 
   listenTo(editor)
   reactions += {
     case ValueChanged(`editor`) ⇒
-      viewer.text = parser.parseToHTML(editor.text)
+      viewer.text = convert(editor.text)
   }
 
   def chooseSaveTarget(dir: File = baseDir): Option[File] = {

@@ -4,7 +4,7 @@ import Dependencies._
 lazy val core = (
   EditorProject("smartupedit-core", "core")
   settings(
-    libraryDependencies += markwrap
+    libraryDependencies ++= Seq(markwrap, specs2 % "test")
   )
 )
 

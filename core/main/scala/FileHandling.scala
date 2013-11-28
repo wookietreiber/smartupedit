@@ -24,20 +24,29 @@ trait FileHandling extends IOHandling {
     new File(sys.props("user.dir"))
   }
 
-  def open() = for (file ← chooseOpenTarget()) {
+  def open(file: File) = {
     IO read file to editor.text_=
     current = Some(file)
   }
 
-  def save(opt: Option[File] = current) = for (file ← opt orElse chooseSaveTarget()) {
+  def save(file: File) = {
     IO write editor.text to file
     current = Some(file)
   }
 
-  def saveAs() = save(None)
+  def openAsk() = for (file ← chooseOpenTarget())
+    open(file)
 
-  def export() = for (file ← chooseSaveTarget()) {
-    IO write viewer.text to file
+  def saveAsk(opt: Option[File] = current) = {
+    val o = opt orElse chooseSaveTarget()
+    for (file ← o)
+      save(file)
+    o
   }
+
+  def saveAskAs() = saveAsk(None)
+
+  def export() = for (file ← chooseSaveTarget())
+    IO write viewer.text to file
 
 }

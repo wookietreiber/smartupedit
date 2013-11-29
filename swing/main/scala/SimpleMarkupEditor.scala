@@ -8,7 +8,7 @@ import scala.swing.event._
 
 import AskSave._
 
-object SimpleMarkupEditor extends SimpleSwingApplication with Converting with Actions with FileHandling with AskSave {
+object SimpleMarkupEditor extends SimpleSwingApplication with Client with Actions with AskSave {
 
   object top extends MainFrame {
     title = "Simple Markup Editor"
@@ -45,7 +45,7 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Converting with Ac
   listenTo(editor)
   reactions += {
     case ValueChanged(`editor`) ⇒
-      viewer.text = convert(editor.text)
+      convert()
   }
 
   def chooseSaveTarget(dir: File = baseDir): Option[File] = {

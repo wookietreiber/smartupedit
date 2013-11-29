@@ -5,7 +5,7 @@ import scala.util.Try
 
 import AskSave._
 
-abstract class MockClient extends Client {
+abstract class MockClient extends Client with FileHandling {
 
   var hasQuit = false
   var hasSaved = false

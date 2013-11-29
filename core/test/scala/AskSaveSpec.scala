@@ -42,7 +42,7 @@ class AskSaveSpec extends Specification { def is = s2"""
 
   def con1 = {
     val client = new AskSaveMockClient()
-    client.convert("")
+    client.convert()
     client.hasChanged === true
   }
 

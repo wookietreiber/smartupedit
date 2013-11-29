@@ -16,7 +16,7 @@ object AskSave {
 
 import AskSave._
 
-trait AskSave extends Client {
+trait AskSave extends Client with FileHandling {
 
   var hasChanged = false
 
@@ -27,10 +27,9 @@ trait AskSave extends Client {
     hasChanged = false
   }
 
-  abstract override def convert(text: String): String = {
-    val result = super.convert(text)
+  abstract override def convert() = {
+    super.convert()
     hasChanged = true
-    result
   }
 
   def hasChangedDependent(body: ⇒ Unit): Unit =

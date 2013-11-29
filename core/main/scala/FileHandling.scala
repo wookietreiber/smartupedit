@@ -4,16 +4,7 @@ import language.reflectiveCalls
 
 import java.io.File
 
-trait FileHandling extends IOHandling {
-
-  def editor: {
-    def text: String
-    def text_=(s: String)
-  }
-
-  def viewer: {
-    def text: String
-  }
+trait FileHandling extends Client with IOHandling {
 
   def chooseSaveTarget(dir: File = baseDir): Option[File]
   def chooseOpenTarget(dir: File = baseDir): Option[File]
@@ -48,5 +39,10 @@ trait FileHandling extends IOHandling {
 
   def export() = for (file ← chooseSaveTarget())
     IO write viewer.text to file
+
+  abstract override def clear() = {
+    super.clear()
+    current = None
+  }
 
 }

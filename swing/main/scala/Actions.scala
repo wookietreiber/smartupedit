@@ -28,35 +28,32 @@ trait Actions {
       override def apply = Try(self.export()) recover showError
     }
 
-    object newA extends Action("New") {
+    object clear extends Action("New") {
       accelerator = Some(KeyStroke(Key.N, Key.Modifier.Control))
       mnemonic    = Key.N.id
 
-      override def apply = {
-        editor.text = ""
-        current = None
-      }
+      override def apply = self.clear()
     }
 
     object open extends Action("Open") {
       accelerator = Some(KeyStroke(Key.O, Key.Modifier.Control))
       mnemonic    = Key.O.id
 
-      override def apply = Try(self.open()) recover showError
+      override def apply = Try(self.openAsk()) recover showError
     }
 
     object save extends Action("Save") {
       accelerator = Some(KeyStroke(Key.S, Key.Modifier.Control))
       mnemonic    = Key.S.id
 
-      override def apply = Try(self.save()) recover showError
+      override def apply = Try(self.saveAsk()) recover showError
     }
 
     object saveAs extends Action("Save As") {
       accelerator = Some(KeyStroke(Key.S, Key.Modifier.Control + Key.Modifier.Shift))
       mnemonic    = Key.A.id
 
-      override def apply = Try(self.saveAs()) recover showError
+      override def apply = Try(self.saveAskAs()) recover showError
     }
 
     object quit extends Action("Quit") {

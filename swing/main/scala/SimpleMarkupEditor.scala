@@ -6,7 +6,9 @@ import java.io.File
 import scala.swing._
 import scala.swing.event._
 
-object SimpleMarkupEditor extends SimpleSwingApplication with Converting with Actions with FileHandling {
+import AskSave._
+
+object SimpleMarkupEditor extends SimpleSwingApplication with Client with Actions with AskSave {
 
   object top extends MainFrame {
     title = "Simple Markup Editor"
@@ -15,7 +17,7 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Converting with Ac
     menuBar = new MenuBar {
       val file = new Menu("File")
       file.mnemonic = Key.F
-      file.contents += new MenuItem(action.newA)
+      file.contents += new MenuItem(action.clear)
       file.contents += new MenuItem(action.open)
       file.contents += new Separator
       file.contents += new MenuItem(action.save)
@@ -43,7 +45,7 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Converting with Ac
   listenTo(editor)
   reactions += {
     case ValueChanged(`editor`) ⇒
-      viewer.text = convert(editor.text)
+      convert()
   }
 
   def chooseSaveTarget(dir: File = baseDir): Option[File] = {
@@ -66,6 +68,19 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Converting with Ac
 
       case _ ⇒ None
     }
+  }
+
+  override def quit(): Unit = super.quit()
+
+  def askSave = Dialog showConfirmation (
+    parent = editor,
+    message = "The changes you made to the buffer are not yet saved.\n\nDo you want to save them now?",
+    title = "Save Changes?",
+    optionType = Dialog.Options.YesNoCancel
+  ) match {
+    case Dialog.Result.Yes ⇒ AskSaveOption.Yes
+    case Dialog.Result.No ⇒ AskSaveOption.No
+    case Dialog.Result.Cancel ⇒ AskSaveOption.Cancel
   }
 
 }

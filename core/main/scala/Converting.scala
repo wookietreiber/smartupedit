@@ -1,12 +1,17 @@
 package smartupedit
 
+import language.reflectiveCalls
+
 import org.clapper.markwrap._
 
 trait Converting {
 
+  self: Client =>
+
   val parser = MarkWrap.parserFor(MarkupType.Markdown)
 
-  def convert(text: String): String =
-    parser.parseToHTML(text)
+  def convert() = {
+    viewer.text = parser.parseToHTML(editor.text)
+  }
 
 }

@@ -4,16 +4,7 @@ import language.reflectiveCalls
 
 import java.io.File
 
-trait FileHandling extends IOHandling {
-
-  def editor: {
-    def text: String
-    def text_=(s: String)
-  }
-
-  def viewer: {
-    def text: String
-  }
+trait FileHandling extends Client with FileIO {
 
   def chooseSaveTarget(dir: File = baseDir): Option[File]
   def chooseOpenTarget(dir: File = baseDir): Option[File]
@@ -24,20 +15,32 @@ trait FileHandling extends IOHandling {
     new File(sys.props("user.dir"))
   }
 
-  def open() = for (file ← chooseOpenTarget()) {
-    IO read file to editor.text_=
+  def open(file: File) = {
+    editor.text = file.read
     current = Some(file)
   }
 
-  def save(opt: Option[File] = current) = for (file ← opt orElse chooseSaveTarget()) {
-    IO write editor.text to file
+  def save(file: File) = {
+    file write editor.text
     current = Some(file)
   }
 
-  def saveAs() = save(None)
+  def openAsk() = chooseOpenTarget() foreach open
 
-  def export() = for (file ← chooseSaveTarget()) {
-    IO write viewer.text to file
+  def saveAsk(opt: Option[File] = current) = {
+    val target = opt orElse chooseSaveTarget()
+    target foreach save
+    target
+  }
+
+  def saveAskAs() = saveAsk(None)
+
+  def export() = for (file ← chooseSaveTarget())
+    file write viewer.text
+
+  abstract override def clear() = {
+    super.clear()
+    current = None
   }
 
 }

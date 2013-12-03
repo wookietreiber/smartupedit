@@ -2,8 +2,6 @@ package smartupedit
 
 import language.reflectiveCalls
 
-import java.io.File
-
 trait AskOverwrite extends FileHandling {
 
   def askOverwrite(): DialogOption.Result

@@ -1,11 +1,13 @@
 package smartupedit
 
-import java.io._
-
 trait FileIO {
 
+  type File = java.io.File
+
+  def File(path: String) = new File(path)
+
   implicit class RichFile(file: File) {
-    def read: String = {
+    def read(): String = {
       val source = io.Source.fromFile(file)
       try {
         source.getLines.mkString("\n")
@@ -15,7 +17,7 @@ trait FileIO {
     }
 
     def write(content: String) = {
-      val writer = new FileWriter(file)
+      val writer = new java.io.FileWriter(file)
       try {
         writer.write(content)
       } finally {

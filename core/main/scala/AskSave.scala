@@ -1,7 +1,5 @@
 package smartupedit
 
-import java.io.File
-
 trait AskSave extends Client with FileHandling {
 
   var hasChanged = false

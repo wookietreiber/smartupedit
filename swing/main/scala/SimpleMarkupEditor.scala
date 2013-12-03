@@ -1,8 +1,6 @@
 package smartupedit
 package swing
 
-import java.io.File
-
 import scala.swing._
 import scala.swing.event._
 

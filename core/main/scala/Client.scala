@@ -2,8 +2,6 @@ package smartupedit
 
 import language.reflectiveCalls
 
-import java.io.File
-
 trait Client extends Converting {
 
   def editor: {
@@ -17,9 +15,6 @@ trait Client extends Converting {
   }
 
   def quit(): Unit
-
-  def current: Option[File]
-  def current_=(o: Option[File]): Unit
 
   def clear() = {
     editor.text = ""

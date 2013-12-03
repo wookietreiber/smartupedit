@@ -2,8 +2,6 @@ package smartupedit
 
 import language.reflectiveCalls
 
-import java.io.File
-
 trait FileHandling extends Client with FileIO {
 
   var current = Option.empty[File]
@@ -13,7 +11,7 @@ trait FileHandling extends Client with FileIO {
   }
 
   def baseDir = current map { _.getParentFile } getOrElse {
-    new File(sys.props("user.dir"))
+    File(sys.props("user.dir"))
   }
 
   abstract override def clear() = {
@@ -41,7 +39,7 @@ trait FileHandling extends Client with FileIO {
   def openAsk() = chooseOpenTarget() foreach open
 
   def open(file: File) = {
-    editor.text = file.read
+    editor.text = file.read()
     current = Some(file)
   }
 

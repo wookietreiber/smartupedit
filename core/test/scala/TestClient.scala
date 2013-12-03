@@ -25,17 +25,9 @@ abstract class MockClient extends Client with FileHandling {
 class AskSaveMockClient(
     askSaveOption: AskSaveOption.Result = AskSaveOption.Yes,
     choose: Option[File] = Some(new File("test.md")))
-  extends MockClient with AskSave {
+  extends MockClient with AskSave with DummyEditor with DummyViewer {
 
   var hasBeenAsked = false
-
-  object editor {
-    var text = ""
-  }
-
-  object viewer {
-    var text = ""
-  }
 
   def chooseSaveTarget(dir: File = baseDir): Option[File] =
     choose
@@ -48,4 +40,16 @@ class AskSaveMockClient(
     askSaveOption
   }
 
+}
+
+trait DummyEditor {
+  object editor {
+    var text = ""
+  }
+}
+
+trait DummyViewer {
+  object viewer {
+    var text = ""
+  }
 }

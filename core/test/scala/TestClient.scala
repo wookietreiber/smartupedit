@@ -3,8 +3,6 @@ package smartupedit
 import java.io.File
 import scala.util.Try
 
-import AskSave._
-
 abstract class MockClient extends Client with FileHandling {
 
   var hasQuit = false
@@ -23,7 +21,7 @@ abstract class MockClient extends Client with FileHandling {
 }
 
 class AskSaveMockClient(
-    askSaveOption: AskSaveOption.Result = AskSaveOption.Yes,
+    askSaveOption: DialogOption.Result = DialogOption.Yes,
     choose: Option[File] = Some(new File("test.md")))
   extends MockClient with AskSave with DummyEditor with DummyViewer {
 

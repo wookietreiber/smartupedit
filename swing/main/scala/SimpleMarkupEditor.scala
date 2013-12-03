@@ -6,8 +6,6 @@ import java.io.File
 import scala.swing._
 import scala.swing.event._
 
-import AskSave._
-
 object SimpleMarkupEditor extends SimpleSwingApplication with Client with Actions with AskSave {
 
   object top extends MainFrame {
@@ -72,15 +70,11 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Client with Action
 
   override def quit(): Unit = super.quit()
 
-  def askSave = Dialog showConfirmation (
+  override def askSave = Dialog showConfirmation (
     parent = editor,
-    message = "The changes you made to the buffer are not yet saved.\n\nDo you want to save them now?",
     title = "Save Changes?",
+    message = "The changes you made to the buffer are not yet saved.\n\nDo you want to save them now?",
     optionType = Dialog.Options.YesNoCancel
-  ) match {
-    case Dialog.Result.Yes ⇒ AskSaveOption.Yes
-    case Dialog.Result.No ⇒ AskSaveOption.No
-    case Dialog.Result.Cancel ⇒ AskSaveOption.Cancel
-  }
+  )
 
 }

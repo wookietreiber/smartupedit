@@ -2,25 +2,11 @@ package smartupedit
 
 import java.io.File
 
-object AskSave {
-
-  object AskSaveOption {
-    sealed abstract class Result
-
-    object Yes extends Result
-    object No extends Result
-    object Cancel extends Result
-  }
-
-}
-
-import AskSave._
-
 trait AskSave extends Client with FileHandling {
 
   var hasChanged = false
 
-  def askSave(): AskSaveOption.Result
+  def askSave(): DialogOption.Result
 
   abstract override def save(file: File) = {
     super.save(file)
@@ -36,13 +22,13 @@ trait AskSave extends Client with FileHandling {
     if (!hasChanged) {
       body
     } else askSave() match {
-      case AskSaveOption.Yes ⇒
+      case DialogOption.Yes ⇒
         if (saveAsk().isDefined) body
 
-      case AskSaveOption.No ⇒
+      case DialogOption.No ⇒
         body
 
-      case AskSaveOption.Cancel ⇒
+      case DialogOption.Cancel ⇒
     }
 
   abstract override def clear() = hasChangedDependent {

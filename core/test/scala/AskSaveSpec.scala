@@ -2,8 +2,6 @@ package smartupedit
 
 import org.specs2._
 
-import AskSave._
-
 class AskSaveSpec extends Specification { def is = s2"""
 
   convert action
@@ -57,7 +55,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c2a = {
-    val client = new AskSaveMockClient(AskSaveOption.Yes)
+    val client = new AskSaveMockClient(DialogOption.Yes)
     client.hasChanged = true
     client.clear()
     AskSaveState(client) === AskSaveState (
@@ -67,7 +65,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c2b = {
-    val client = new AskSaveMockClient(AskSaveOption.Yes, choose = None)
+    val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
     client.hasChanged = true
     client.clear()
     AskSaveState(client) === AskSaveState (
@@ -78,7 +76,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c3 = {
-    val client = new AskSaveMockClient(AskSaveOption.No)
+    val client = new AskSaveMockClient(DialogOption.No)
     client.hasChanged = true
     client.clear()
     AskSaveState(client) === AskSaveState (
@@ -88,7 +86,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c4 = {
-    val client = new AskSaveMockClient(AskSaveOption.Cancel)
+    val client = new AskSaveMockClient(DialogOption.Cancel)
     client.hasChanged = true
     client.clear()
     AskSaveState(client) === AskSaveState (
@@ -110,7 +108,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o2a = {
-    val client = new AskSaveMockClient(AskSaveOption.Yes)
+    val client = new AskSaveMockClient(DialogOption.Yes)
     client.hasChanged = true
     client.openAsk()
     AskSaveState(client) === AskSaveState (
@@ -121,7 +119,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o2b = {
-    val client = new AskSaveMockClient(AskSaveOption.Yes, choose = None)
+    val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
     client.hasChanged = true
     client.openAsk()
     AskSaveState(client) === AskSaveState (
@@ -133,7 +131,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o3 = {
-    val client = new AskSaveMockClient(AskSaveOption.No)
+    val client = new AskSaveMockClient(DialogOption.No)
     client.hasChanged = true
     client.openAsk()
     AskSaveState(client) === AskSaveState (
@@ -144,7 +142,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o4 = {
-    val client = new AskSaveMockClient(AskSaveOption.Cancel)
+    val client = new AskSaveMockClient(DialogOption.Cancel)
     client.hasChanged = true
     client.openAsk()
     AskSaveState(client) === AskSaveState (
@@ -166,7 +164,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q2a = {
-    val client = new AskSaveMockClient(AskSaveOption.Yes)
+    val client = new AskSaveMockClient(DialogOption.Yes)
     client.hasChanged = true
     client.quit()
     AskSaveState(client) === AskSaveState (
@@ -177,7 +175,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q2b = {
-    val client = new AskSaveMockClient(AskSaveOption.Yes, choose = None)
+    val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
     client.hasChanged = true
     client.quit()
     AskSaveState(client) === AskSaveState (
@@ -189,7 +187,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q3 = {
-    val client = new AskSaveMockClient(AskSaveOption.No)
+    val client = new AskSaveMockClient(DialogOption.No)
     client.hasChanged = true
     client.quit()
     AskSaveState(client) === AskSaveState (
@@ -201,7 +199,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q4 = {
-    val client = new AskSaveMockClient(AskSaveOption.Cancel)
+    val client = new AskSaveMockClient(DialogOption.Cancel)
     client.hasChanged = true
     client.quit()
     AskSaveState(client) === AskSaveState (

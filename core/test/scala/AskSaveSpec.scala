@@ -48,17 +48,14 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient()
     client.hasChanged = false
     client.clear()
-    AskSaveState(client) === AskSaveState (
-      hasBeenAsked = false,
-      hasSaved = false
-    )
+    MockClientState(client) === MockClientState()
   }
 
   def c2a = {
     val client = new AskSaveMockClient(DialogOption.Yes)
     client.hasChanged = true
     client.clear()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasBeenAsked = true,
       hasSaved = true
     )
@@ -68,10 +65,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
     client.hasChanged = true
     client.clear()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true,
-      hasSaved = false
+      hasBeenAsked = true
     )
   }
 
@@ -79,9 +75,8 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.No)
     client.hasChanged = true
     client.clear()
-    AskSaveState(client) === AskSaveState (
-      hasBeenAsked = true,
-      hasSaved = false
+    MockClientState(client) === MockClientState (
+      hasBeenAsked = true
     )
   }
 
@@ -89,10 +84,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Cancel)
     client.hasChanged = true
     client.clear()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true,
-      hasSaved = false
+      hasBeenAsked = true
     )
   }
 
@@ -100,10 +94,8 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient()
     client.hasChanged = false
     client.openAsk()
-    AskSaveState(client) === AskSaveState (
-      hasBeenAsked = false,
-      hasOpened = true,
-      hasSaved = false
+    MockClientState(client) === MockClientState (
+      hasOpened = true
     )
   }
 
@@ -111,7 +103,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Yes)
     client.hasChanged = true
     client.openAsk()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasBeenAsked = true,
       hasOpened = true,
       hasSaved = true
@@ -122,11 +114,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
     client.hasChanged = true
     client.openAsk()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true,
-      hasOpened = false,
-      hasSaved = false
+      hasBeenAsked = true
     )
   }
 
@@ -134,10 +124,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.No)
     client.hasChanged = true
     client.openAsk()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasBeenAsked = true,
-      hasOpened = true,
-      hasSaved = false
+      hasOpened = true
     )
   }
 
@@ -145,10 +134,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Cancel)
     client.hasChanged = true
     client.openAsk()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true,
-      hasSaved = false
+      hasBeenAsked = true
     )
   }
 
@@ -156,9 +144,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient()
     client.hasChanged = false
     client.quit()
-    AskSaveState(client) === AskSaveState (
-      hasBeenAsked = false,
-      hasSaved = false,
+    MockClientState(client) === MockClientState (
       hasQuit = true
     )
   }
@@ -167,7 +153,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Yes)
     client.hasChanged = true
     client.quit()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasBeenAsked = true,
       hasSaved = true,
       hasQuit = true
@@ -178,11 +164,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
     client.hasChanged = true
     client.quit()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true,
-      hasSaved = false,
-      hasQuit = false
+      hasBeenAsked = true
     )
   }
 
@@ -190,10 +174,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.No)
     client.hasChanged = true
     client.quit()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasChanged = true,
       hasBeenAsked = true,
-      hasSaved = false,
       hasQuit = true
     )
   }
@@ -202,10 +185,9 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient(DialogOption.Cancel)
     client.hasChanged = true
     client.quit()
-    AskSaveState(client) === AskSaveState (
+    MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true,
-      hasSaved = false
+      hasBeenAsked = true
     )
   }
 
@@ -213,8 +195,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     val client = new AskSaveMockClient()
     client.hasChanged = true
     client.saveAsk()
-    AskSaveState(client) === AskSaveState (
-      hasBeenAsked = false,
+    MockClientState(client) === MockClientState (
       hasSaved = true
     )
   }
@@ -223,14 +204,8 @@ class AskSaveSpec extends Specification { def is = s2"""
   // util
   // -----------------------------------------------------------------------------------------------
 
-  case class AskSaveState(hasChanged: Boolean = false, hasBeenAsked: Boolean, hasOpened: Boolean = false,
-    hasSaved: Boolean, hasQuit: Boolean = false) {
-    override def toString =
-      s"""AskSaveState(hasChanged=$hasChanged,hasBeenAsked=$hasBeenAsked,hasOpened=$hasOpened,hasSaved=$hasSaved,hasQuit=$hasQuit)"""
-  }
-
-  object AskSaveState {
-    def apply(client: AskSaveMockClient): AskSaveState = AskSaveState (
+  implicit class RichMockClientState(underlying: MockClientState.type) {
+    def apply(client: AskSaveMockClient): MockClientState = MockClientState (
       hasChanged   = client.hasChanged,
       hasBeenAsked = client.hasBeenAsked,
       hasOpened    = client.hasOpened,

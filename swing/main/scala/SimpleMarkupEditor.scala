@@ -6,7 +6,8 @@ import java.io.File
 import scala.swing._
 import scala.swing.event._
 
-object SimpleMarkupEditor extends SimpleSwingApplication with Client with Actions with AskSave {
+object SimpleMarkupEditor extends SimpleSwingApplication with Client with Actions
+    with AskSave with AskOverwrite {
 
   object top extends MainFrame {
     title = "Simple Markup Editor"
@@ -46,10 +47,10 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Client with Action
       convert()
   }
 
-  def chooseSaveTarget(dir: File = baseDir): Option[File] = {
+  def chooseExportTarget(dir: File = baseDir): Option[File] = {
     val chooser = new FileChooser(dir)
 
-    chooser.showSaveDialog(over = editor) match {
+    chooser.showOpenDialog(over = editor) match {
       case FileChooser.Result.Approve ⇒
         Some(chooser.selectedFile)
 
@@ -68,12 +69,30 @@ object SimpleMarkupEditor extends SimpleSwingApplication with Client with Action
     }
   }
 
+  def chooseSaveTarget(dir: File = baseDir): Option[File] = {
+    val chooser = new FileChooser(dir)
+
+    chooser.showSaveDialog(over = editor) match {
+      case FileChooser.Result.Approve ⇒
+        Some(chooser.selectedFile)
+
+      case _ ⇒ None
+    }
+  }
+
   override def quit(): Unit = super.quit()
 
   override def askSave = Dialog showConfirmation (
     parent = editor,
     title = "Save Changes?",
     message = "The changes you made to the buffer are not yet saved.\n\nDo you want to save them now?",
+    optionType = Dialog.Options.YesNoCancel
+  )
+
+  override def askOverwrite = Dialog showConfirmation (
+    parent = editor,
+    title = "Overwrite This File?",
+    message = "You are about to overwrite the chosen file.\n\nDo you really want to do this?",
     optionType = Dialog.Options.YesNoCancel
   )
 

@@ -25,7 +25,7 @@ trait Actions {
       accelerator = Some(KeyStroke(Key.E, Key.Modifier.Control))
       mnemonic    = Key.E.id
 
-      override def apply = Try(self.export()) recover showError
+      override def apply = Try(self.exportAsk()) recover showError
     }
 
     object clear extends Action("New") {

@@ -35,7 +35,9 @@ trait FileHandling extends Client with FileIO {
 
   def saveAskAs() = saveAsk(None)
 
-  def export() = for (file ← chooseSaveTarget())
+  def exportAsk() = chooseSaveTarget() foreach export
+
+  def export(file: File) =
     file write viewer.text
 
   abstract override def clear() = {

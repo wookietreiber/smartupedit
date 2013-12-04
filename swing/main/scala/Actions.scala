@@ -28,11 +28,11 @@ trait Actions {
       override def apply = Try(self.exportAsk()) recover showError
     }
 
-    object clear extends Action("New") {
+    object newFile extends Action("New") {
       accelerator = Some(KeyStroke(Key.N, Key.Modifier.Control))
       mnemonic    = Key.N.id
 
-      override def apply = self.clear()
+      override def apply = self.newFile()
     }
 
     object open extends Action("Open") {

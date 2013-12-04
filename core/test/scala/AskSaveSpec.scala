@@ -7,7 +7,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   convert action
     converting sets changed to true                                                       $con1
 
-  clear action
+  newFile action
     no changes no asking                                                                  $c1
     changes and option yes
       choosing a file                                                                     $c2a
@@ -47,14 +47,14 @@ class AskSaveSpec extends Specification { def is = s2"""
   def c1 = {
     val client = new AskSaveMockClient()
     client.hasChanged = false
-    client.clear()
+    client.newFile()
     MockClientState(client) === MockClientState()
   }
 
   def c2a = {
     val client = new AskSaveMockClient(DialogOption.Yes)
     client.hasChanged = true
-    client.clear()
+    client.newFile()
     MockClientState(client) === MockClientState (
       hasBeenAsked = true,
       hasSaved = true
@@ -64,7 +64,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   def c2b = {
     val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
     client.hasChanged = true
-    client.clear()
+    client.newFile()
     MockClientState(client) === MockClientState (
       hasChanged = true,
       hasBeenAsked = true
@@ -74,7 +74,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   def c3 = {
     val client = new AskSaveMockClient(DialogOption.No)
     client.hasChanged = true
-    client.clear()
+    client.newFile()
     MockClientState(client) === MockClientState (
       hasBeenAsked = true
     )
@@ -83,7 +83,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   def c4 = {
     val client = new AskSaveMockClient(DialogOption.Cancel)
     client.hasChanged = true
-    client.clear()
+    client.newFile()
     MockClientState(client) === MockClientState (
       hasChanged = true,
       hasBeenAsked = true

@@ -16,8 +16,4 @@ trait Client extends Converting {
 
   def quit(): Unit
 
-  def clear() = {
-    editor.text = ""
-  }
-
 }

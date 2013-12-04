@@ -14,8 +14,8 @@ trait FileHandling extends Client with FileIO {
     File(sys.props("user.dir"))
   }
 
-  abstract override def clear() = {
-    super.clear()
+  def newFile() = {
+    editor.text = ""
     current = None
   }
 

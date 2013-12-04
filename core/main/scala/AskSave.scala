@@ -29,8 +29,8 @@ trait AskSave extends Client with FileHandling {
       case DialogOption.Cancel ⇒
     }
 
-  abstract override def clear() = hasChangedDependent {
-    super.clear()
+  abstract override def newFile() = hasChangedDependent {
+    super.newFile()
     hasChanged = false
   }
 

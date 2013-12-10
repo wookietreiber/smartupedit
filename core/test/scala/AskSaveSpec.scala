@@ -56,18 +56,18 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true,
+      hasBeenAskedToSave = true,
       hasSaved = true
     )
   }
 
   def c2b = {
-    val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
+    val client = new AskSaveMockClient(DialogOption.Yes, fileChoice = None)
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true
+      hasBeenAskedToSave = true
     )
   }
 
@@ -76,7 +76,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true
+      hasBeenAskedToSave = true
     )
   }
 
@@ -86,7 +86,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.newFile()
     MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true
+      hasBeenAskedToSave = true
     )
   }
 
@@ -104,19 +104,19 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.hasChanged = true
     client.openAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true,
+      hasBeenAskedToSave = true,
       hasOpened = true,
       hasSaved = true
     )
   }
 
   def o2b = {
-    val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
+    val client = new AskSaveMockClient(DialogOption.Yes, fileChoice = None)
     client.hasChanged = true
     client.openAsk()
     MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true
+      hasBeenAskedToSave = true
     )
   }
 
@@ -125,7 +125,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.hasChanged = true
     client.openAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true,
+      hasBeenAskedToSave = true,
       hasOpened = true
     )
   }
@@ -136,7 +136,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.openAsk()
     MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true
+      hasBeenAskedToSave = true
     )
   }
 
@@ -154,19 +154,19 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.hasChanged = true
     client.quit()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true,
+      hasBeenAskedToSave = true,
       hasSaved = true,
       hasQuit = true
     )
   }
 
   def q2b = {
-    val client = new AskSaveMockClient(DialogOption.Yes, choose = None)
+    val client = new AskSaveMockClient(DialogOption.Yes, fileChoice = None)
     client.hasChanged = true
     client.quit()
     MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true
+      hasBeenAskedToSave = true
     )
   }
 
@@ -176,7 +176,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.quit()
     MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true,
+      hasBeenAskedToSave = true,
       hasQuit = true
     )
   }
@@ -187,7 +187,7 @@ class AskSaveSpec extends Specification { def is = s2"""
     client.quit()
     MockClientState(client) === MockClientState (
       hasChanged = true,
-      hasBeenAsked = true
+      hasBeenAskedToSave = true
     )
   }
 
@@ -206,11 +206,11 @@ class AskSaveSpec extends Specification { def is = s2"""
 
   implicit class RichMockClientState(underlying: MockClientState.type) {
     def apply(client: AskSaveMockClient): MockClientState = MockClientState (
-      hasChanged   = client.hasChanged,
-      hasBeenAsked = client.hasBeenAsked,
-      hasOpened    = client.hasOpened,
-      hasSaved     = client.hasSaved,
-      hasQuit      = client.hasQuit
+      hasChanged         = client.hasChanged,
+      hasBeenAskedToSave = client.hasBeenAskedToSave,
+      hasOpened          = client.hasOpened,
+      hasSaved           = client.hasSaved,
+      hasQuit            = client.hasQuit
     )
   }
 

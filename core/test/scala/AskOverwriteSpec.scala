@@ -25,7 +25,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
   // -----------------------------------------------------------------------------------------------
 
   def e0 = {
-    val client = new AskOverwriteMockClient(choose = missing)
+    val client = new AskOverwriteMockClient(fileChoice = missing)
     client.exportAsk()
     MockClientState(client) === MockClientState (
       hasExported = true
@@ -36,7 +36,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
     val client = new AskOverwriteMockClient()
     client.exportAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true,
+      hasBeenAskedToOverwrite = true,
       hasExported = true
     )
   }
@@ -45,7 +45,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
     val client = new AskOverwriteMockClient(DialogOption.No)
     client.exportAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true
+      hasBeenAskedToOverwrite = true
     )
   }
 
@@ -53,12 +53,12 @@ class AskOverwriteSpec extends Specification { def is = s2"""
     val client = new AskOverwriteMockClient(DialogOption.Cancel)
     client.exportAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true
+      hasBeenAskedToOverwrite = true
     )
   }
 
   def s0 = {
-    val client = new AskOverwriteMockClient(choose = missing)
+    val client = new AskOverwriteMockClient(fileChoice = missing)
     client.saveAsk()
     MockClientState(client) === MockClientState (
       hasSaved = true
@@ -69,7 +69,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
     val client = new AskOverwriteMockClient()
     client.saveAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true,
+      hasBeenAskedToOverwrite = true,
       hasSaved = true
     )
   }
@@ -78,7 +78,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
     val client = new AskOverwriteMockClient(DialogOption.No)
     client.saveAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true
+      hasBeenAskedToOverwrite = true
     )
   }
 
@@ -86,7 +86,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
     val client = new AskOverwriteMockClient(DialogOption.Cancel)
     client.saveAsk()
     MockClientState(client) === MockClientState (
-      hasBeenAsked = true
+      hasBeenAskedToOverwrite = true
     )
   }
 
@@ -98,9 +98,9 @@ class AskOverwriteSpec extends Specification { def is = s2"""
 
   implicit class RichMockClientState(underlying: MockClientState.type) {
     def apply(client: AskOverwriteMockClient): MockClientState = MockClientState (
-      hasBeenAsked = client.hasBeenAsked,
-      hasExported  = client.hasExported,
-      hasSaved     = client.hasSaved
+      hasBeenAskedToOverwrite = client.hasBeenAskedToOverwrite,
+      hasExported             = client.hasExported,
+      hasSaved                = client.hasSaved
     )
   }
 

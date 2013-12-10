@@ -4,7 +4,7 @@ package swing
 import scala.swing._
 import scala.swing.event._
 
-object SimpleMarkupEditor extends SimpleSwingApplication with Client with Actions
+object SimpleMarkupEditor extends SimpleSwingApplication with FileHandlingClient with Actions
     with AskSave with AskOverwrite {
 
   object top extends MainFrame {

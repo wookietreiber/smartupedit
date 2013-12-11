@@ -8,9 +8,9 @@ trait Converting {
 
   self: Client =>
 
-  val parser = MarkWrap.parserFor(MarkupType.Markdown)
+  val parser: MarkWrapParser = MarkWrap.parserFor(MarkupType.Markdown)
 
-  def convert() = {
+  def convert(): Unit = {
     viewer.text = parser.parseToHTML(editor.text)
   }
 

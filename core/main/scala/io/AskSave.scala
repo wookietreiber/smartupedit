@@ -10,17 +10,18 @@ trait AskSave extends FileHandlingClient {
   def resetWith(body: => ActionResult): ActionResult = {
     val result = body
 
-    if (result == ActionPerformed)
+    if (result == ActionPerformed) {
       hasChanged = false
+    }
 
     result
   }
 
-  abstract override def save(file: File) = resetWith {
+  abstract override def save(file: File): ActionResult = resetWith {
     super.save(file)
   }
 
-  abstract override def convert() = {
+  abstract override def convert(): Unit = {
     super.convert()
     hasChanged = true
   }
@@ -28,35 +29,38 @@ trait AskSave extends FileHandlingClient {
   def hasChangedDependent(body: ⇒ ActionResult): ActionResult =
     if (!hasChanged) {
       body
-    } else askSave() match {
-      case DialogOption.Yes ⇒
-        val result = saveAsk()
+    } else {
+      askSave() match {
+        case DialogOption.Yes ⇒
+          val result = saveAsk()
 
-        if (result == ActionPerformed)
+          if (result == ActionPerformed) {
+            body
+          } else {
+            result
+          }
+
+        case DialogOption.No ⇒
           body
-        else
-          result
 
-      case DialogOption.No ⇒
-        body
-
-      case DialogOption.Cancel ⇒
-        ActionEscalate
+        case DialogOption.Cancel ⇒
+          ActionEscalate
+      }
     }
 
-  abstract override def newFile() = hasChangedDependent {
+  abstract override def newFile(): ActionResult = hasChangedDependent {
     resetWith {
       super.newFile()
     }
   }
 
-  abstract override def openAsk() = hasChangedDependent {
+  abstract override def openAsk(): ActionResult = hasChangedDependent {
     resetWith {
       super.openAsk()
     }
   }
 
-  abstract override def quit() = hasChangedDependent {
+  abstract override def quit(): Unit = hasChangedDependent {
     super.quit()
     ActionPerformed
   }

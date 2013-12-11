@@ -82,14 +82,14 @@ object SimpleMarkupEditor extends SimpleSwingApplication with FileHandlingClient
 
   override def quit(): Unit = super.quit()
 
-  override def askSave = Dialog showConfirmation (
+  override def askSave(): DialogOption.Result = Dialog showConfirmation (
     parent = editor,
     title = "Save Changes?",
     message = "The changes you made to the buffer are not yet saved.\n\nDo you want to save them now?",
     optionType = Dialog.Options.YesNoCancel
   )
 
-  override def askOverwrite = Dialog showConfirmation (
+  override def askOverwrite(): DialogOption.Result = Dialog showConfirmation (
     parent = editor,
     title = "Overwrite This File?",
     message = "You are about to overwrite the chosen file.\n\nDo you really want to do this?",

@@ -7,7 +7,7 @@ trait FileIO {
 
   type File = java.io.File
 
-  def File(path: String) = new File(path)
+  def File(path: String): File = new File(path)
 
   implicit class RichFile(file: File) {
     def read(): String = {
@@ -19,7 +19,7 @@ trait FileIO {
       }
     }
 
-    def write(content: String) = {
+    def write(content: String): Unit = {
       val writer = new java.io.FileWriter(file)
       try {
         writer.write(content)

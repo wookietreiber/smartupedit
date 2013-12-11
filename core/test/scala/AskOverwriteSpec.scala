@@ -1,4 +1,5 @@
 package smartupedit
+package io
 
 import org.specs2._
 

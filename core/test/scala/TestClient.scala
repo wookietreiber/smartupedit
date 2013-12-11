@@ -1,4 +1,5 @@
 package smartupedit
+package io
 
 import java.io.File
 import scala.util.Try

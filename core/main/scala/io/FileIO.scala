@@ -1,4 +1,7 @@
 package smartupedit
+package io
+
+import scala.io.Source
 
 trait FileIO {
 
@@ -8,7 +11,7 @@ trait FileIO {
 
   implicit class RichFile(file: File) {
     def read(): String = {
-      val source = io.Source.fromFile(file)
+      val source = Source.fromFile(file)
       try {
         source.getLines.mkString("\n")
       } finally {

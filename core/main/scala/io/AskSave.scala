@@ -17,7 +17,7 @@ trait AskSave extends FileHandlingClient {
     result
   }
 
-  abstract override def save(file: File): ActionResult = resetWith {
+  private[io] abstract override def save(file: File): ActionResult = resetWith {
     super.save(file)
   }
 
@@ -32,7 +32,7 @@ trait AskSave extends FileHandlingClient {
     } else {
       askSave() match {
         case DialogOption.Yes ⇒
-          val result = saveAsk()
+          val result = save()
 
           if (result == ActionPerformed) {
             body

@@ -53,7 +53,7 @@ abstract class MockClient extends FileHandlingClient {
   override def quit(): Unit =
     hasQuit = true
 
-  override def save(file: File): ActionResult = {
+  private[io] override def save(file: File): ActionResult = {
     hasSaved = true
     ActionPerformed
   }

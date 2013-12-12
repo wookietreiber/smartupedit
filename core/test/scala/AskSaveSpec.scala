@@ -195,7 +195,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   def s1 = {
     val client = new AskSaveMockClient()
     client.hasChanged = true
-    client.saveAsk()
+    client.save()
     MockClientState(client) === MockClientState (
       hasSaved = true
     )

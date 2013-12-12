@@ -48,14 +48,14 @@ trait Actions {
       accelerator = Some(KeyStroke(Key.S, Key.Modifier.Control))
       mnemonic    = Key.S.id
 
-      override def apply(): Unit = Try(self.saveAsk()) recover showError
+      override def apply(): Unit = Try(self.save()) recover showError
     }
 
     object saveAs extends Action("Save As") {
       accelerator = Some(KeyStroke(Key.S, Key.Modifier.Control + Key.Modifier.Shift))
       mnemonic    = Key.A.id
 
-      override def apply(): Unit = Try(self.saveAskAs()) recover showError
+      override def apply(): Unit = Try(self.saveAs()) recover showError
     }
 
     object quit extends Action("Quit") {

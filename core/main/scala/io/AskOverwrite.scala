@@ -14,7 +14,7 @@ trait AskOverwrite extends FileHandlingClient {
       ActionEscalate
     }
 
-  abstract override def save(file: File): ActionResult =
+  private[io] abstract override def save(file: File): ActionResult =
     if (isCurrent(file) || !file.exists || askOverwrite() == DialogOption.Yes) {
       super.save(file)
     } else {

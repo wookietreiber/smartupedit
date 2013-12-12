@@ -27,7 +27,7 @@ trait Actions {
       accelerator = Some(KeyStroke(Key.E, Key.Modifier.Control))
       mnemonic    = Key.E.id
 
-      override def apply(): Unit = Try(self.exportAsk()) recover showError
+      override def apply(): Unit = Try(self.export()) recover showError
     }
 
     object newFile extends Action("New") {

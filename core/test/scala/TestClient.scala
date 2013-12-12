@@ -40,7 +40,7 @@ abstract class MockClient extends FileHandlingClient {
   var hasQuit = false
   var hasSaved = false
 
-  override def export(file: File): ActionResult = {
+  private[io] override def export(file: File): ActionResult = {
     hasExported = true
     ActionPerformed
   }

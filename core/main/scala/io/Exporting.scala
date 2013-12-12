@@ -7,10 +7,10 @@ trait Exporting extends FileHandling {
 
   def chooseExportTarget(dir: File = baseDir): Option[File]
 
-  def exportAsk(): ActionResult =
+  final def export(): ActionResult =
     chooseExportTarget().map(export).getOrElse(ActionEscalate)
 
-  def export(file: File): ActionResult = {
+  private[io] def export(file: File): ActionResult = {
     file write viewer.text
     ActionPerformed
   }

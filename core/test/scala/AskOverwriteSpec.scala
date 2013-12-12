@@ -27,7 +27,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
 
   def e0 = {
     val client = new AskOverwriteMockClient(fileChoice = missing)
-    client.exportAsk()
+    client.export()
     MockClientState(client) === MockClientState (
       hasExported = true
     )
@@ -35,7 +35,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
 
   def e1 = {
     val client = new AskOverwriteMockClient()
-    client.exportAsk()
+    client.export()
     MockClientState(client) === MockClientState (
       hasBeenAskedToOverwrite = true,
       hasExported = true
@@ -44,7 +44,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
 
   def e2 = {
     val client = new AskOverwriteMockClient(DialogOption.No)
-    client.exportAsk()
+    client.export()
     MockClientState(client) === MockClientState (
       hasBeenAskedToOverwrite = true
     )
@@ -52,7 +52,7 @@ class AskOverwriteSpec extends Specification { def is = s2"""
 
   def e3 = {
     val client = new AskOverwriteMockClient(DialogOption.Cancel)
-    client.exportAsk()
+    client.export()
     MockClientState(client) === MockClientState (
       hasBeenAskedToOverwrite = true
     )

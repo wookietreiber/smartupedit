@@ -54,9 +54,9 @@ trait AskSave extends FileHandlingClient {
     }
   }
 
-  abstract override def openAsk(): ActionResult = hasChangedDependent {
+  private[io] abstract override def open1(): ActionResult = hasChangedDependent {
     resetWith {
-      super.openAsk()
+      super.open1()
     }
   }
 

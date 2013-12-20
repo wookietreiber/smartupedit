@@ -34,7 +34,7 @@ class IntegrationSpec extends Specification { def is = s2"""
   def o1 = {
     val client = new FullMockClient(askOverwriteOption = DialogOption.Cancel)
     client.hasChanged = true
-    client.openAsk()
+    client.open()
     MockClientState(client) === MockClientState (
       hasBeenAskedToOverwrite = true,
       hasBeenAskedToSave = true,

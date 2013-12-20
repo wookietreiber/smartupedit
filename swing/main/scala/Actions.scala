@@ -41,7 +41,7 @@ trait Actions {
       accelerator = Some(KeyStroke(Key.O, Key.Modifier.Control))
       mnemonic    = Key.O.id
 
-      override def apply(): Unit = Try(self.openAsk()) recover showError
+      override def apply(): Unit = Try(self.open()) recover showError
     }
 
     object save extends Action("Save") {

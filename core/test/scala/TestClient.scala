@@ -45,7 +45,7 @@ abstract class MockClient extends FileHandlingClient {
     ActionPerformed
   }
 
-  override def open(file: File): ActionResult = {
+  private[io] override def open(file: File): ActionResult = {
     hasOpened = true
     ActionPerformed
   }

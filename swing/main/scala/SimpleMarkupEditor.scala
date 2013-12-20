@@ -44,7 +44,9 @@ object SimpleMarkupEditor extends SimpleSwingApplication with FileHandlingClient
     font = java.awt.Font decode "Monospaced"
   }
 
-  object viewer extends EditorPane("text/html", "")
+  object viewer extends EditorPane("text/html", "") {
+    focusable = false
+  }
 
   listenTo(editor)
   reactions += {

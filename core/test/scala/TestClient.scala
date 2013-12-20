@@ -42,12 +42,12 @@ abstract class MockClient extends FileHandlingClient {
 
   private[io] override def export(file: File): ActionResult = {
     hasExported = true
-    ActionPerformed
+    ActionResult.Performed
   }
 
   private[io] override def open(file: File): ActionResult = {
     hasOpened = true
-    ActionPerformed
+    ActionResult.Performed
   }
 
   override def quit(): Unit =
@@ -55,26 +55,26 @@ abstract class MockClient extends FileHandlingClient {
 
   private[io] override def save(file: File): ActionResult = {
     hasSaved = true
-    ActionPerformed
+    ActionResult.Performed
   }
 
 }
 
 class AskSaveMockClient(
-    val askSaveOption: DialogOption.Result = DialogOption.Yes,
+    val askSaveOption: DialogResult = DialogResult.Yes,
     val fileChoice: Option[File] = Some(new File("test.md")))
   extends MockClient with MockAskSave with MockFileChooser
   with DummyEditor with DummyViewer
 
 class AskOverwriteMockClient(
-    val askOverwriteOption: DialogOption.Result = DialogOption.Yes,
+    val askOverwriteOption: DialogResult = DialogResult.Yes,
     val fileChoice: Option[File] = Some(new File("README.md")))
   extends MockClient with MockAskOverwrite with MockFileChooser
   with DummyEditor with DummyViewer
 
 class FullMockClient(
-    val askOverwriteOption: DialogOption.Result = DialogOption.Yes,
-    val askSaveOption: DialogOption.Result = DialogOption.Yes,
+    val askOverwriteOption: DialogResult = DialogResult.Yes,
+    val askSaveOption: DialogResult = DialogResult.Yes,
     val fileChoice: Option[File] = Some(new File("README.md")))
   extends MockClient with MockAskOverwrite with MockAskSave with MockFileChooser
   with DummyEditor with DummyViewer
@@ -98,7 +98,7 @@ trait MockAskOverwrite extends AskOverwrite {
 
   var hasBeenAskedToOverwrite = false
 
-  def askOverwriteOption: DialogOption.Result
+  def askOverwriteOption: DialogResult
 
   def askOverwrite() = {
     hasBeenAskedToOverwrite = true
@@ -111,7 +111,7 @@ trait MockAskSave extends AskSave {
 
   var hasBeenAskedToSave = false
 
-  def askSaveOption: DialogOption.Result
+  def askSaveOption: DialogResult
 
   def askSave() = {
     hasBeenAskedToSave = true

@@ -2,5 +2,7 @@ package smartupedit
 
 sealed trait ActionResult
 
-case object ActionPerformed extends ActionResult
-case object ActionEscalate extends ActionResult
+object ActionResult {
+  case object Performed extends ActionResult
+  case object Escalate extends ActionResult
+}

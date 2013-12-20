@@ -53,7 +53,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c2a = {
-    val client = new AskSaveMockClient(DialogOption.Yes)
+    val client = new AskSaveMockClient(DialogResult.Yes)
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
@@ -63,7 +63,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c2b = {
-    val client = new AskSaveMockClient(DialogOption.Yes, fileChoice = None)
+    val client = new AskSaveMockClient(DialogResult.Yes, fileChoice = None)
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
@@ -73,7 +73,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c3 = {
-    val client = new AskSaveMockClient(DialogOption.No)
+    val client = new AskSaveMockClient(DialogResult.No)
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
@@ -82,7 +82,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def c4 = {
-    val client = new AskSaveMockClient(DialogOption.Cancel)
+    val client = new AskSaveMockClient(DialogResult.Cancel)
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
@@ -101,7 +101,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o2a = {
-    val client = new AskSaveMockClient(DialogOption.Yes)
+    val client = new AskSaveMockClient(DialogResult.Yes)
     client.hasChanged = true
     client.open()
     MockClientState(client) === MockClientState (
@@ -112,7 +112,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o2b = {
-    val client = new AskSaveMockClient(DialogOption.Yes, fileChoice = None)
+    val client = new AskSaveMockClient(DialogResult.Yes, fileChoice = None)
     client.hasChanged = true
     client.open()
     MockClientState(client) === MockClientState (
@@ -122,7 +122,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o3 = {
-    val client = new AskSaveMockClient(DialogOption.No)
+    val client = new AskSaveMockClient(DialogResult.No)
     client.hasChanged = true
     client.open()
     MockClientState(client) === MockClientState (
@@ -132,7 +132,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def o4 = {
-    val client = new AskSaveMockClient(DialogOption.Cancel)
+    val client = new AskSaveMockClient(DialogResult.Cancel)
     client.hasChanged = true
     client.open()
     MockClientState(client) === MockClientState (
@@ -151,7 +151,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q2a = {
-    val client = new AskSaveMockClient(DialogOption.Yes)
+    val client = new AskSaveMockClient(DialogResult.Yes)
     client.hasChanged = true
     client.quit()
     MockClientState(client) === MockClientState (
@@ -162,7 +162,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q2b = {
-    val client = new AskSaveMockClient(DialogOption.Yes, fileChoice = None)
+    val client = new AskSaveMockClient(DialogResult.Yes, fileChoice = None)
     client.hasChanged = true
     client.quit()
     MockClientState(client) === MockClientState (
@@ -172,7 +172,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q3 = {
-    val client = new AskSaveMockClient(DialogOption.No)
+    val client = new AskSaveMockClient(DialogResult.No)
     client.hasChanged = true
     client.quit()
     MockClientState(client) === MockClientState (
@@ -183,7 +183,7 @@ class AskSaveSpec extends Specification { def is = s2"""
   }
 
   def q4 = {
-    val client = new AskSaveMockClient(DialogOption.Cancel)
+    val client = new AskSaveMockClient(DialogResult.Cancel)
     client.hasChanged = true
     client.quit()
     MockClientState(client) === MockClientState (

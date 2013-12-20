@@ -12,11 +12,11 @@ package object swing {
   def KeyStroke(key: Key.Value, modifiers: Int = 0): KeyStroke =
     javax.swing.KeyStroke.getKeyStroke(key.id, modifiers)
 
-  implicit def swing2dialogOption(from: Dialog.Result.Value): DialogOption.Result = from match {
-    case Dialog.Result.Yes    => DialogOption.Yes
-    case Dialog.Result.No     => DialogOption.No
-    case Dialog.Result.Cancel => DialogOption.Cancel
-    case Dialog.Result.Closed => DialogOption.Cancel
+  implicit def swing2dialogresult(from: Dialog.Result.Value): DialogResult = from match {
+    case Dialog.Result.Yes    => DialogResult.Yes
+    case Dialog.Result.No     => DialogResult.No
+    case Dialog.Result.Cancel => DialogResult.Cancel
+    case Dialog.Result.Closed => DialogResult.Cancel
   }
 
 }

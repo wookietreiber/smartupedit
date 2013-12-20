@@ -5,12 +5,12 @@ trait AskSave extends FileHandlingClient {
 
   var hasChanged = false
 
-  def askSave(): DialogOption.Result
+  def askSave(): DialogResult
 
   def resetWith(body: => ActionResult): ActionResult = {
     val result = body
 
-    if (result == ActionPerformed) {
+    if (result == ActionResult.Performed) {
       hasChanged = false
     }
 
@@ -31,20 +31,20 @@ trait AskSave extends FileHandlingClient {
       body
     } else {
       askSave() match {
-        case DialogOption.Yes ⇒
+        case DialogResult.Yes ⇒
           val result = save()
 
-          if (result == ActionPerformed) {
+          if (result == ActionResult.Performed) {
             body
           } else {
             result
           }
 
-        case DialogOption.No ⇒
+        case DialogResult.No ⇒
           body
 
-        case DialogOption.Cancel ⇒
-          ActionEscalate
+        case DialogResult.Cancel ⇒
+          ActionResult.Escalate
       }
     }
 
@@ -62,7 +62,7 @@ trait AskSave extends FileHandlingClient {
 
   abstract override def quit(): Unit = hasChangedDependent {
     super.quit()
-    ActionPerformed
+    ActionResult.Performed
   }
 
 }

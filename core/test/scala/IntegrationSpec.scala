@@ -21,7 +21,7 @@ class IntegrationSpec extends Specification { def is = s2"""
   // -----------------------------------------------------------------------------------------------
 
   def n1 = {
-    val client = new FullMockClient(askOverwriteOption = DialogOption.Cancel)
+    val client = new FullMockClient(askOverwriteOption = DialogResult.Cancel)
     client.hasChanged = true
     client.newFile()
     MockClientState(client) === MockClientState (
@@ -32,7 +32,7 @@ class IntegrationSpec extends Specification { def is = s2"""
   }
 
   def o1 = {
-    val client = new FullMockClient(askOverwriteOption = DialogOption.Cancel)
+    val client = new FullMockClient(askOverwriteOption = DialogResult.Cancel)
     client.hasChanged = true
     client.open()
     MockClientState(client) === MockClientState (
@@ -43,7 +43,7 @@ class IntegrationSpec extends Specification { def is = s2"""
   }
 
   def q1 = {
-    val client = new FullMockClient(askOverwriteOption = DialogOption.Cancel)
+    val client = new FullMockClient(askOverwriteOption = DialogResult.Cancel)
     client.hasChanged = true
     client.quit()
     MockClientState(client) === MockClientState (

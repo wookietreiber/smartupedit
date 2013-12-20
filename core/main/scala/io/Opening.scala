@@ -11,12 +11,12 @@ trait Opening extends FileHandling {
     open1()
 
   private[io] def open1(): ActionResult =
-    chooseOpenTarget().map(open).getOrElse(ActionEscalate)
+    chooseOpenTarget().map(open).getOrElse(ActionResult.Escalate)
 
   private[io] def open(file: File): ActionResult = {
     editor.text = file.read()
     current = Some(file)
-    ActionPerformed
+    ActionResult.Performed
   }
 
 }

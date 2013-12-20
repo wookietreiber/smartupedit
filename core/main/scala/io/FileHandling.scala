@@ -18,7 +18,7 @@ trait FileHandling extends Client with FileIO {
   def newFile(): ActionResult = {
     editor.text = ""
     current = None
-    ActionPerformed
+    ActionResult.Performed
   }
 
 }

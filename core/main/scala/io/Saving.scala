@@ -14,12 +14,12 @@ trait Saving extends FileHandling {
     save(None)
 
   private[io] final def save(opt: Option[File] = current): ActionResult =
-    opt.orElse(chooseSaveTarget()).map(save).getOrElse(ActionEscalate)
+    opt.orElse(chooseSaveTarget()).map(save).getOrElse(ActionResult.Escalate)
 
   private[io] def save(file: File): ActionResult = {
     file write editor.text
     current = Some(file)
-    ActionPerformed
+    ActionResult.Performed
   }
 
 }

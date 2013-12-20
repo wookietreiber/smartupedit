@@ -5,20 +5,20 @@ import language.reflectiveCalls
 
 trait AskOverwrite extends FileHandlingClient {
 
-  def askOverwrite(): DialogOption.Result
+  def askOverwrite(): DialogResult
 
   private[io] abstract override def export(file: File): ActionResult =
-    if (!file.exists || askOverwrite() == DialogOption.Yes) {
+    if (!file.exists || askOverwrite() == DialogResult.Yes) {
       super.export(file)
     } else {
-      ActionEscalate
+      ActionResult.Escalate
     }
 
   private[io] abstract override def save(file: File): ActionResult =
-    if (isCurrent(file) || !file.exists || askOverwrite() == DialogOption.Yes) {
+    if (isCurrent(file) || !file.exists || askOverwrite() == DialogResult.Yes) {
       super.save(file)
     } else {
-      ActionEscalate
+      ActionResult.Escalate
     }
 
 }

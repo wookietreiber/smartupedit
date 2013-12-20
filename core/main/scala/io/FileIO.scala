@@ -3,13 +3,13 @@ package io
 
 import scala.io.Source
 
-trait FileIO {
+private[io] trait FileIO {
 
   type File = java.io.File
 
-  def File(path: String): File = new File(path)
+  private[io] def File(path: String): File = new File(path)
 
-  implicit class RichFile(file: File) {
+  private[io] implicit class RichFile(file: File) {
     def read(): String = {
       val source = Source.fromFile(file)
       try {

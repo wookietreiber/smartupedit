@@ -25,7 +25,12 @@ object SimpleMarkupEditor extends SimpleSwingApplication with FileHandlingClient
       file.contents += new Separator
       file.contents += new MenuItem(action.quit)
 
+      val edit = new Menu("Edit")
+      edit.mnemonic = Key.E
+      edit.contents += new MenuItem(action.markup)
+
       contents += file
+      contents += edit
     }
   }
 

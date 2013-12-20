@@ -30,6 +30,20 @@ trait Actions {
       override def apply(): Unit = Try(self.export()) recover showError
     }
 
+    object markup extends Action("Markup Type ...") {
+      mnemonic = Key.M.id
+
+      override def apply(): Unit = for {
+        choice <- Dialog.showInput[Markup](
+          parent = editor,
+          title = "Choose Markup Type",
+          message = "Choose the markup type for the conversion!",
+          entries = Seq(Markup.Markdown, Markup.Textile),
+          initial = self.markup
+        )
+      } self.markup = choice
+    }
+
     object newFile extends Action("New") {
       accelerator = Some(KeyStroke(Key.N, Key.Modifier.Control))
       mnemonic    = Key.N.id

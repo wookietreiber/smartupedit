@@ -18,7 +18,7 @@ trait Saving extends FileHandling {
 
   private[io] def save(file: File): ActionResult = {
     file write editor.text
-    current = Some(file)
+    current = file
     ActionResult.Performed
   }
 

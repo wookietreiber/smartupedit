@@ -15,7 +15,7 @@ trait Opening extends FileHandling {
 
   private[io] def open(file: File): ActionResult = {
     editor.text = file.read()
-    current = Some(file)
+    current = file
     ActionResult.Performed
   }
 

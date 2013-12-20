@@ -21,8 +21,8 @@ trait AskSave extends FileHandlingClient {
     super.save(file)
   }
 
-  abstract override def convert(): Unit = {
-    super.convert()
+  private[smartupedit] abstract override def convert1(): Unit = {
+    super.convert1()
     hasChanged = true
   }
 

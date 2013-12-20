@@ -3,11 +3,11 @@ package io
 
 trait AskSave extends FileHandlingClient {
 
-  var hasChanged = false
+  private[io] var hasChanged = false
 
   def askSave(): DialogResult
 
-  def resetWith(body: => ActionResult): ActionResult = {
+  private def resetWith(body: => ActionResult): ActionResult = {
     val result = body
 
     if (result == ActionResult.Performed) {
@@ -26,7 +26,7 @@ trait AskSave extends FileHandlingClient {
     hasChanged = true
   }
 
-  def hasChangedDependent(body: ⇒ ActionResult): ActionResult =
+  private def hasChangedDependent(body: ⇒ ActionResult): ActionResult =
     if (!hasChanged) {
       body
     } else {
